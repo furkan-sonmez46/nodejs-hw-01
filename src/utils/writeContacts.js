@@ -1,11 +1,13 @@
 import fs from 'fs';
-import path from 'path';
+
 import { PATH_DB } from '../constants/contacts.js';
 
-export const writeContacts = (data) => {
-  fs.writeFileSync(
-    path.resolve(PATH_DB),
-    JSON.stringify(data, null, 2),
-    'utf-8',
-  );
+export const writeContacts = async (updatedContacts) => {
+  try {
+    const data = JSON.stringify(updatedContacts);
+    await fs.writeFile(PATH_DB, data, 'utf8');
+    console.log('Data successfully written to file.');
+  } catch (err) {
+    console.error('Error writing to file:', err);
+  }
 };
