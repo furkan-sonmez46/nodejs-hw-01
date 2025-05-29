@@ -1,8 +1,13 @@
 import { readContacts } from '../utils/readContacts.js';
 
 export const countContacts = () => {
-  const contacts = readContacts();
-  return contacts.length;
+  try {
+    const contacts = readContacts();
+    return contacts.length;
+  } catch (error) {
+    console.error('Error counting contacts:', error.message);
+    return 0;
+  }
 };
 
 console.log(await countContacts());
