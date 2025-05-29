@@ -1,3 +1,9 @@
-export const addOneContact = async () => {};
+import { readContacts } from '../utils/readContacts.js';
+import { writeContacts } from '../utils/writeContacts.js';
+import { createFakeContact } from '../utils/createFakeContact.js';
 
-addOneContact();
+export const addOneContact = () => {
+  const contacts = readContacts();
+  contacts.push(createFakeContact());
+  writeContacts(contacts);
+};
