@@ -1,11 +1,21 @@
+import { createFakeContact } from '../utils/createFakeContact.js';
 import { readContacts } from '../utils/readContacts.js';
 import { writeContacts } from '../utils/writeContacts.js';
-import { createFakeContact } from '../utils/createFakeContact.js';
 
-export const generateContacts = (count) => {
-  const contacts = readContacts();
-  for (let i = 0; i < count; i++) {
-    contacts.push(createFakeContact());
+const generateContacts = async (number) => {
+  const contacts = await readContacts();
+  const newContacts = [];
+  for (let i = 0; i < number; i++) {
+    const newContact = createFakeContact();
+    newContacts.push(newContact);
   }
-  writeContacts(contacts);
+  const updatedContacts = [...contacts, ...newContacts];
+  try {
+    await writeContacts(updatedContacts);
+    console.log('Data successfully added to file.');
+  } catch (err) {
+    console.error('Error appending data to file:', err);
+  }
 };
+
+generateContacts(5);
